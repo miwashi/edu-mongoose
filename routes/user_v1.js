@@ -2,13 +2,17 @@ const mongoose = require('mongoose')
 
 main().catch(err => console.log(err));
 async function main() {
-  await mongoose.connect('mongodb://localhost:27017/test');
+  await mongoose.connect('mongodb://root:root@localhost:27017/test');
 }
 
+const userSchema = new mongoose.Schema({
+	name: String
+});
+const User = mongoose.model('User', userSchema);
+
 const create = (user) => {
-	const id ="newid"
-	const saveUser = {... user, "id": id}
-	return saveUser
+	const savedUser = new User({ name: user.fullName });
+	return savedUser
 }
 
 const read = () => {
